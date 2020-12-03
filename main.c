@@ -9,24 +9,26 @@ struct Book{
 
 int main(void) {
 
-	struct Book *p;
+	int i;
+	struct Book **bookshelf;
 
-	p = (struct Book*)malloc(2*sizeof(struct Book));
+	bookshelf = (struct Book**)malloc(3*sizeof(struct Book*));
+	for(i=0;i<3;i++)
+		bookshelf[i] = (struct Book*)malloc(10*sizeof(struct Book));
 
-	if(p==NULL)
-	{
-		printf("메모리 할당 오류\n");
-		return -1;
-	}
+	bookshelf[1][3].number = 5;
+	strcpy(bookshelf[1][3].title,"C++ Programming");
 
-	p->number = 1;
-	strcpy(p->title, "C Programming");
+	(bookshelf[2]+4)->number = 3;
+	strcpy((bookshelf[2]+4)->title, "Communications Theory");
 
-	(p+1)->number = 2;	
-	strcpy((p+1)->title, "Elctronics");
+	printf("book(1,3) : %i, %s\n", (bookshelf[1]+3)->number, (bookshelf[1]+3)->title);
+	printf("book(2,4) : %i, %s\n", bookshelf[2][4].number, bookshelf[2][4].title);
 
-	free(p);
-
+	for(i=0;i<3;i++)
+		free(bookshelf[i]);
+	free(bookshelf);
+	
 	return 0;
 }
 
