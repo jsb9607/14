@@ -1,27 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct Book{
+	int number;
+	char title[20];
+};
 
 
 int main(void) {
 
-	char *pc = NULL;
-	int i = 0;
+	struct Book *p;
 
-	pc = (char*)malloc(100*sizeof(char));
-	if(pc==NULL){
-		printf("메모리 할당 오류!\n");
-		exit(-1);
-	}
+	p = (struct Book*)malloc(2*sizeof(struct Book));
 
-	for(i=0 ; i<26 ; i++)
+	if(p==NULL)
 	{
-		pc[i] = 'a'+i;
+		printf("메모리 할당 오류\n");
+		return -1;
 	}
-	pc[i] = 0;
-	printf("%s\n", pc);
-	free(pc);
-	
+
+	p->number = 1;
+	strcpy(p->title, "C Programming");
+
+	(p+1)->number = 2;	
+	strcpy((p+1)->title, "Elctronics");
+
+	free(p);
+
 	return 0;
 }
 
